@@ -1,0 +1,76 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        // Android Gradle plugin
+        classpath 'com.android.tools.build:gradle:1.3.1'
+
+        // Resolves android-sdk dependencies
+        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.12.0'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+
+    // Workaround for preventing Gradle from stealing focus from other apps
+    // https://gist.github.com/artem-zinnatullin/4c250e04636e25797165
+    tasks.withType(JavaForkOptions) {
+        jvmArgs '-Djava.awt.headless=true'
+    }
+
+    project.plugins.whenPluginAdded { plugin ->
+
+        // Ignore 'debug' buildType for library projects
+        // Because we don't have debug-specific code and we don't need to build debug variants
+        // https://gist.github.com/artem-zinnatullin/ec3bce6dcb2cd524c435
+        if ('com.android.build.gradle.LibraryPlugin'.equals(plugin.class.name)) {
+            project.android.variantFilter {
+                if (it.buildType.name.equals('debug')) {
+                    it.ignore = true
+                }
+            }
+        }
+    }
+}
+
+ext {
+    buildToolsVersion = '23.0.1'
+    minSdkVersion = 9
+    compileSdkVersion = 23
+}
+
+ext.libraries = [
+        // Libraries for tests
+        junit            : 'junit:junit:4.12',
+        robolectric      : 'org.robolectric:robolectric:3.0',
+        assertJ          : 'org.assertj:assertj-core:1.7.1',
+]
+
+subprojects {
+    project.plugins.whenPluginAdded { plugin ->
+        if ('com.android.build.gradle.AppPlugin'.equals(plugin.class.name)
+                || 'com.android.build.gradle.LibraryPlugin'.equals(plugin.class.name)) {
+
+            // treat all Android Lint warning in all sub-projects as errors
+            project.android.lintOptions.warningsAsErrors = true
+
+            project.android.testOptions.unitTests.all {
+                testLogging {
+                    events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+                    exceptionFormat 'full'
+                }
+            }
+        }
+    }
+}
+
