@@ -2,7 +2,7 @@
 
 Q: Need to verify `android.os.Parcelable` implementation in your tests?
 
-A: It's easy as `assertObjectParcelable(someObject)`!
+A: It's easy as `assertThatObjectParcelable(someObject)`!
 
 ####Download
 
@@ -23,12 +23,12 @@ androidTestCompile 'com.artemzin.assert-parcelable:assert-parcelable:insert-late
 Example of usage
 
 ```java
-import static AssertParcelable.assertObjectParcelable;
+import static AssertParcelable.assertThatObjectParcelable;
 
 @Test
 public void verifyThatMyClassIsParcelable() {
   // Notice that your class must implement equals()!
   MyParcelableClass object = new MyParcelableClass("someValue");
-  assertObjectParcelable(object);
+  assertThatObjectParcelable(object);
 }
 ```
