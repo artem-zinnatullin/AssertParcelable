@@ -42,13 +42,14 @@ public final class AssertParcelable {
                             "is not public");
                 }
 
+                creatorField.setAccessible(true);
                 CREATOR = (Parcelable.Creator<T>) creatorField.get(null);
             } catch (NoSuchFieldException e) {
                 throw new AssertionError(object.getClass().getSimpleName() + ".CREATOR " +
                         "public static field must be presented in the class");
             } catch (IllegalAccessException e) {
                 throw new AssertionError(object.getClass().getSimpleName() + ".CREATOR " +
-                        "is not public");
+                        "is not accessible");
             } catch (ClassCastException e) {
                 throw new AssertionError(object.getClass().getSimpleName() + ".CREATOR " +
                         "field must be of type android.os.Parcelable.Creator" +
