@@ -6,17 +6,19 @@ A: It's easy as `assertThatObjectParcelable(someObject)`!
 
 ####Download
 
-`com.artemzin.assert-parcelable:assert-parcelable:1.0.0`
+`com.artemzin.assert-parcelable:assert-parcelable:1.0.1`
+
+All versions on [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22assert-parcelable%22).
 
 ---------------
 Example of `build.gradle`:
 
 ```groovy
 // Add for unit tests (Robolectric, etc)
-testCompile 'com.artemzin.assert-parcelable:assert-parcelable:insert-latest-version-here'
+testCompile 'com.artemzin.assert-parcelable:assert-parcelable:1.0.1'
 
 // Or/and add for instrumentation tests (emulator, device, etc)
-androidTestCompile 'com.artemzin.assert-parcelable:assert-parcelable:insert-latest-version-here'
+androidTestCompile 'com.artemzin.assert-parcelable:assert-parcelable:1.0.1'
 ```
 
 ----------------
