@@ -1,6 +1,6 @@
 ### AssertParcelable
 
-Checks that class properly implements `android.os.Parcelable` interface forcing Framework to serialize and deserialize it.
+Checks that class properly implements `android.os.Parcelable` interface forcing Framework to serialize and deserialize it and then checks that deserialized object is equal to original one.
 
 Works in both Instrumentation and Robolectric environments.
 
@@ -31,7 +31,7 @@ import static AssertParcelable.assertThatObjectParcelable;
 
 @Test
 public void verifyThatMyClassIsParcelable() {
-  // Notice that your class must implement equals()!
+  // Class must properly implement equals()!
   MyParcelableClass object = new MyParcelableClass("someValue");
   assertThatObjectParcelable(object);
 }
